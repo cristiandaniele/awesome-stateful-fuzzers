@@ -82,3 +82,10 @@ This repository contains a list of stateful fuzzers, organised according to the 
 | [_MachineLearning for Black-box Fuzzing of NetworkProtocols_](https://link.springer.com/chapter/10.1007/978-3-319-89500-0_53)                                            | seq2seqmodel  | Traces        | No          |
 | [_SeqFuzzer_](https://wcventure.github.io/FuzzingPaper/Paper/ICST19_SeqFuzzer.pdf)                                                                                       | seq2seqmodel  | Traces        | No          |
 
+# How to contribute
+
+To contribute, you can open a PR with either:
+
+- A fuzzer which is not present in the list.
+- A correction. For instance, you think a fuzzer should belong to a different category.
+- Ideas to improve the overall structure.
