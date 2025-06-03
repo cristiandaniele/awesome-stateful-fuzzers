@@ -3,13 +3,13 @@
 This repository contains a list of stateful fuzzers, organised according to the categories presented in the paper "Fuzzers for stateful systems: Survey and Research Directions"
 
 # Categories of fuzzers
-- Grammar Based
-- Grammar Learner
-- Evolutionary
-- Evolutionary  Grammar-based
-- Evolutionary Grammar-learner
-- Man in the Middle
-- Machine Learning based
+- **Grammar Based**: Take in input *a* grammar. It can be the grammar of the messages or the grammar of the traces to produce slightly malformed yet grammar-compliant messages.
+- **Grammar Learner**: Similar to grammar-based ones, they automatically infer the state model or the message structure starting from messages or traces.
+- **Evolutionary**: Similar to the majority of the stateless fuzzers, they usually take in input the binary file of the software and a sample of messages (often called seed files) to mutate messages that likely trigger bugs.
+- **Evolutionary  Grammar-based**: Similar to the Evolutionary ones, they also take grammar as input.
+- **Evolutionary Grammar-learner**: Similar to the Evolutionary Grammar-learner ones, they also try to *infer* the state model or the structure of the messages
+- **Man in the Middle**: Very different from the above-mentioned ones, they sit between client and server, intercept messages, mutate and forward them.
+- **Machine Learning based**: This category also contains fuzzers very different from the first. In fact, it contains fuzzers that rely on ML techniques to produce *ready-to-forward* messages or traces.
 
 # What do the fields mean? 
 - **Fuzzer Name**: quite easy
