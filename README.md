@@ -1,8 +1,29 @@
 # awesome-stateful-fuzzers
 
-This repository contains a list of stateful fuzzers, organised according to the categories presented in the paper "Fuzzers for stateful systems: Survey and Research Directions"
+This repository contains a list of stateful fuzzers, organised according to the categories presented in the paper ["Fuzzers for stateful systems: Survey and Research Directions"](https://dl.acm.org/doi/pdf/10.1145/3648468).
 
-# Categories of fuzzers
+# Short background on fuzzing
+
+**Fuzzing** is a testing technique which has been proven very effective in finding vulnerabilities in software. In a nutshell, a fuzzer sends millions of slightly malformed messages to a SUT (System Under Test) waiting for crashes.
+
+Unlike random test generation tools, fuzzers use different tricks (grammar, code coverage, seed files) to *cleverly generate the messages* to forward to the SUT. In fact, more than random messages, they try to guide the message generation toward the most interesting direction (with 'interesting' usually being the probability of finding bugs).
+
+Our paper focuses on the different kinds of systems a fuzzer can tackle: *stateless* and *stateful*. 
+
+**Stateless systems** (image converter, or mp3 player for example) are relatively easy to fuzz, as they do not keep any memory between executions. This allows the fuzzer not to save any information between executions as well -- making the entire fuzzing process much easier.
+
+On the other hand, **stateful systems** (FTP servers for instance) need to keep an internal state to be able to properly process messages. An FTP server needs to *remember* that the user *Cris* already inserted the correct password. The ability of the SUT to keep some information -- and then make different choices --  makes life hard for fuzzers wich have to deal with it. In fact, while for the stateless systems, the fuzzers only have to generate slightly malformed messages; for stateful systems, the fuzzers need to mutate both the messages and the *traces*, i.e., the sequence of messages. 
+
+Different fuzzers use different approaches to deal with the statefulness of the systems, as explained in our paper and summarised in this repo.
+
+# Relation between stateful fuzzing and active learning (aka active automata learning)
+
+As already mentioned, stateful systems need to keep into account the stateful nature of the SUT. One way of doing it is by using active learning tools to do this.
+
+Very briefly, we can picture active learning tools as fuzzers which send messages to the SUT and observe the responses in order to infer a good approximation of the state model of the SUT. If you want to know more or play around with active learning tools you can visit [this](https://automata.cs.ru.nl) Automata Wiki Prof. Fritz and colleagues wrote a few years ago. Also, you can find some simple examples of state model learning [here](https://github.com/cristiandaniele/ftp-statemodel-learner).
+
+
+# Categories of fuzzers from our survey paper
 - **Grammar Based**: Take in input *a* grammar. It can be the grammar of the messages or the grammar of the traces to produce slightly malformed yet grammar-compliant messages.
 - **Grammar Learner**: Similar to grammar-based ones, they automatically infer the state model or the message structure starting from messages or traces.
 - **Evolutionary**: Similar to the majority of the stateless fuzzers, they usually take in input the binary file of the software and a sample of messages (often called seed files) to mutate messages that likely trigger bugs.
@@ -19,6 +40,10 @@ This repository contains a list of stateful fuzzers, organised according to the 
 - **Feedback System** (same as **Feedback (i)**): Technique/s the *fuzzer* uses to mutate the messages.
 - **Feedback (ii)**: Technique/s the *fuzzer* uses to mutate the message orders.
 - **Limitations**: Limitations that characterize the *fuzzer*.
+
+
+
+
 
 # Grammar Based fuzzers
 
