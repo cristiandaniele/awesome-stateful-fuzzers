@@ -20,7 +20,7 @@ Different fuzzers use different approaches to deal with the statefulness of the 
 
 As already mentioned, stateful systems need to keep into account the stateful nature of the SUT. One way of doing it is by using active learning tools to do this.
 
-Very briefly, we can picture active learning tools as fuzzers which send messages to the SUT and observe the responses in order to infer a good approximation of the state model of the SUT. If you want to know more or play around with active learning tools you can visit [this](https://automata.cs.ru.nl) Automata Wiki Prof. Fritz and colleagues wrote a few years ago. Also, you can find some simple examples of state model learning [here](https://github.com/cristiandaniele/ftp-statemodel-learner).
+Very briefly, we can picture active learning tools as fuzzers which send messages to the SUT and observe the responses in order to infer a good approximation of the state model of the SUT. If you want to know more or play around with active learning tools you can visit [this](https://automata.cs.ru.nl) Automata Wiki Professor [F. Vaandragerand](https://www.cs.ru.nl/~fvaan/) and colleagues wrote a few years ago. Also, you can find some simple examples of state model learning [here](https://github.com/cristiandaniele/ftp-statemodel-learner).
 
 
 # Categories of fuzzers from our survey paper
