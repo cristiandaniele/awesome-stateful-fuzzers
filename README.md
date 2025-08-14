@@ -11,30 +11,29 @@ to keep track of them.
 ## Short background on fuzzing
 
 **Fuzzing** is a testing technique which has been proven very effective in finding vulnerabilities in software. In a nutshell, a fuzzer sends millions of slightly malformed messages to an SUT (System Under Test) hoping to detect crashes which signal vulnerabilities, typically memory corruption flaws.
-
 Fuzzers use various tricks (grammars, seed files, code-coverage-guided evolution, ...) to cleverly generate messages to feed to the SUT, with the goal to maximise code coverage and find as many bugs as possible.
 
-Most fuzzers target *stateless* systems, where the processing of an input message does not depend on previous inputs. Typical examples are graphics libraries for viewing or converting images or audio players.
+Most fuzzers target *stateless* systems. Here the processing of an input message does not depend on previous inputs. Typical examples are graphics libraries for viewing or converting images.
 
-However, many systems, for instance protocol implementations, are *stateful*. Here the system keep an internal state to be able to properly process *sequences of messages*.  For example, an FTP server needs to *remember* that the user *Cris* already inserted the correct password. The internal state recorded by the SUT which then influences the way in which future messages are processed complicates the job for the fuzzer.  To fuzz a stateless system the fuzzer only has to mutate individual messages, but to fuzz a stateful system the fuzzer needs to mutate not just messages but also *traces*, i.e., *sequences of messages*. 
+However, many systems, for instance protocol implementations, are *stateful*. Here the system keep an internal state to be able to properly process *sequences of messages* aka *traces*.  For example, an FTP server needs to remember that the user *Cris* already inserted the correct password. The internal state recorded by the SUT which then influences the way in which future messages are processed complicates the job for the fuzzer.  To fuzz a stateless system the fuzzer only has to mutate individual messages, but to fuzz a stateful system the fuzzer needs to mutate not just messages but also the order of messages in traces.
 
 Different fuzzers use different approaches to deal with the statefulness of the systems, as explained in our paper and summarised in this repo.
 
 ## Relation between stateful fuzzing and active learning (aka active automata learning)
 
-As already mentioned, stateful systems need to keep into account the stateful nature of the SUT. One way of doing it is by using active learning tools to do this.
+As already mentioned, fuzzers for stateful systems need to keep into account the stateful nature of the SUT. One way of inferring this state behaviour is by using active learning tools.
 
-Very briefly, we can picture active learning tools as fuzzers which send messages to the SUT and observe the responses in order to infer a good approximation of the state model of the SUT. If you want to know more or play around with active learning tools you can visit [the Automata Wiki](https://automata.cs.ru.nl) by [Frits Vaandrager](https://www.cs.ru.nl/~fvaan/) and colleagues. Also, you can find some simple examples of state model learning [here](https://github.com/cristiandaniele/ftp-statemodel-learner).
+Very briefly, we can picture active learning tools as fuzzers which send messages to the SUT and observe the responses in order to infer an approximation of the state model of the SUT. If you want to know more or play around with active learning tools you can visit [the Automata Wiki](https://automata.cs.ru.nl) by [Frits Vaandrager](https://www.cs.ru.nl/~fvaan/) and colleagues. Also, you can find some simple examples of state model learning for FTP servers [here](https://github.com/cristiandaniele/ftp-statemodel-learner).
 
 
 ## Categories of fuzzers from our survey paper
-- **Grammar Based**: Take in input *a* grammar. It can be the grammar of the messages or the grammar of the traces to produce slightly malformed yet grammar-compliant messages.
-- **Grammar Learner**: Similar to grammar-based ones, they automatically infer the state model or the message structure starting from messages or traces.
-- **Evolutionary**: Similar to the majority of the stateless fuzzers, they usually take in input the binary file of the software and a sample of messages (often called seed files) to mutate messages that likely trigger bugs.
-- **Evolutionary  Grammar-based**: Similar to the Evolutionary ones, they also take grammar as input.
-- **Evolutionary Grammar-learner**: Similar to the Evolutionary Grammar-learner ones, they also try to *infer* the state model or the structure of the messages
+- **Grammar Based**: These require some grammar as input. This can be the grammar for the messages or the grammar of the traces, or both. The grammar for the traces, i.e. the message sequences, is often thought of as a finite state machine. This grammar is used as basis to produce (slightly) malformed messages and message sequences.
+- **Grammar Learner**: Instead of requiring a grammar as input, these automatically infer a grammar for the message structure or a grammer (aka state model) for the message sequences or the message structure starting from messages or traces.
+- **Evolutionary**: In the evolutionary style popularised by afl, these fuzzers observe execution paths to discover interesting mutations of the initial set of messages (often called seed files).
+- **Evolutionary  Grammar-based**: These also take the evolutionary approach, like the Evolutionary fuzzers, but take a grammar as input.
+- **Evolutionary Grammar-learner**: These take a similar approach as  Evolutionary Grammar-based fuzzere, but they try to *infer* the state model or the structure of the messages.
 - **Man in the Middle**: Very different from the above-mentioned ones, they sit between client and server, intercept messages, mutate and forward them.
-- **Machine Learning based**: This category also contains fuzzers very different from the first. In fact, it contains fuzzers that rely on ML techniques to produce *ready-to-forward* messages or traces.
+- **Machine Learning based**: This category contains fuzzers that rely on ML techniques to produce *ready-to-forward* messages or traces.
 
 ## What do the fields mean? 
 - **Fuzzer Name**: quite easy
@@ -53,12 +52,12 @@ Very briefly, we can picture active learning tools as fuzzers which send message
 
 | Fuzzer Name                                                                | Based on | Mutates          | Open source |
 | -------------------------------------------------------------------------- | -------- | ---------------- | ----------- |
-| [_AspFuzz_](https://ieeexplore.ieee.org/document/5546704)                  | Na       | Messages & trace | Yes         |
-| [_BooFuzz_](https://github.com/jtpereyda/boofuzz)                          | Na       | Messages         | Yes         |
+| [_AspFuzz_](https://ieeexplore.ieee.org/document/5546704)                  | NA       | Messages & trace | Yes         |
+| [_BooFuzz_](https://github.com/jtpereyda/boofuzz)                          | NA       | Messages         | Yes         |
 | [_Fuzzowski_](https://github.com/nccgroup/fuzzowski)                       | Sulley   | Messages         | Yes         |
-| [_Peach_](https://wiki.mozilla.org/Security/Fuzzing/Peach)                 | Na       | Messages         | Yes         |
-| [_PROTOS_](https://link.springer.com/chapter/10.1007/978-0-387-35413-2_16) | Na       | Messages         | No          |
-| [_SNOOZE_](https://link.springer.com/chapter/10.1007/11836810_25)          | Na       | Messages         | No          |
+| [_Peach_](https://wiki.mozilla.org/Security/Fuzzing/Peach)                 | NA       | Messages         | Yes         |
+| [_PROTOS_](https://link.springer.com/chapter/10.1007/978-0-387-35413-2_16) | NA       | Messages         | No          |
+| [_SNOOZE_](https://link.springer.com/chapter/10.1007/11836810_25)          | NA       | Messages         | No          |
 | [_Sulley_](https://github.com/OpenRCE/sulley)                              | BooFuzz  | Messages & trace | Yes         |
 
 ## Grammar Learner fuzzers
@@ -99,8 +98,8 @@ Very briefly, we can picture active learning tools as fuzzers which send message
 | Fuzzer Name                                                                                                                                                                              | Limitations                                                             | Based on         | Inputs needed | Open source |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- | ---------------- | ------------- | ----------- |
 | [_AutoFuzz_](https://link.springer.com/article/10.1007/s11219-025-09707-6)                                                                                                               | Cannot fuzz the message order                                           | Passive learning | Live traffic  | Yes         |
-| [_Black-Box Live Protocol Fuzzing_](https://conference.c3w.at/media/Black_Box_Live_Protocol_Fuzzing.pdf)                                                                                 | Cannot fuzz the message order, user needs to specify the fields to fuzz | Na               | Live traffic  | Yes         |
-| [_SecFuzz_](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=6228985&casa_token=bpZ0912ma0UAAAAA:uMExaYCo7FQ4nEt9h4SANxlUSpr0Jr7UlDiyB4oWHb5Aj4V4rFih3QyjP85XooTh-_NeiCwoyn1R&tag=1) | Limited fuzzing of message order                                        | Na               | Live traffic  | Yes         |
+| [_Black-Box Live Protocol Fuzzing_](https://conference.c3w.at/media/Black_Box_Live_Protocol_Fuzzing.pdf)                                                                                 | Cannot fuzz the message order, user needs to specify the fields to fuzz | NA               | Live traffic  | Yes         |
+| [_SecFuzz_](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=6228985&casa_token=bpZ0912ma0UAAAAA:uMExaYCo7FQ4nEt9h4SANxlUSpr0Jr7UlDiyB4oWHb5Aj4V4rFih3QyjP85XooTh-_NeiCwoyn1R&tag=1) | Limited fuzzing of message order                                        | NA               | Live traffic  | Yes         |
 
 
 
