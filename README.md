@@ -1,6 +1,8 @@
 # awesome-stateful-fuzzers
 
-This repository contains a list of stateful fuzzers, organised according to the categories presented in the paper ["Fuzzers for stateful systems: Survey and Research Directions"](https://dl.acm.org/doi/pdf/10.1145/3648468).
+This repository contains a list of stateful fuzzers, organised according to the categories presented in the survey paper ["Fuzzers for stateful systems: Survey and Research Directions"](https://dl.acm.org/doi/abs/10.1145/3648468) by
+Cristian Daniele, Seyed Benham Andarzian and Erik Poll
+that appeared in ACM Computing Surveys in April 2024.
 
 ## Short background on fuzzing
 
