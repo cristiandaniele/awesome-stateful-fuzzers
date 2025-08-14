@@ -38,3 +38,17 @@
 	url = {http://arxiv.org/abs/2402.17394v1},
 	year = {2024}
 }
+
+@article{Song2025,
+title = {CSFuzzer: A grey-box fuzzer for network protocol using context-aware state feedback},
+journal = {Computers & Security},
+volume = {157},
+pages = {104581},
+year = {2025},
+issn = {0167-4048},
+doi = {https://doi.org/10.1016/j.cose.2025.104581},
+url = {https://www.sciencedirect.com/science/article/pii/S0167404825002706},
+author = {Xiangpu Song and Yingpei Zeng and Jianliang Wu and Hao Li and Chaoshun Zuo and Qingchuan Zhao and Shanqing Guo},
+keywords = {Protocol fuzzing, State feedback, Software testing},
+abstract = {Code coverage-guided fuzzers have achieved great success in discovering vulnerabilities, but since code coverage does not adequately describe protocol states, they are not effective enough for protocol fuzzing. Although there has been some work introducing state feedback to guide state exploration in protocol fuzzing, they ignore the complexity of protocol state space, e.g., state variables have different categories and are diverse in data type and number, facing the challenges of inaccurate state variable identification and low fuzzing efficiency. In this paper, we propose a novel context-aware state-guided fuzzing approach, CSFuzzer, to address the above challenges. CSFuzzer first divides the state variables into two categories, i.e., protocol-state variables and sub-state variables based on the context of the states, and automatically identifies and distinguishes these two categories of state variables from code. Then, CSFuzzer uses a new state coverage metric named context-aware state transition coverage to more efficiently guide fuzzing. We have implemented a prototype of CSFuzzer and evaluated it on 12 open-source protocol programs. Our experiments show that CSFuzzer outperforms the existing state-of-the-art fuzzers in terms of code and state coverage as well as fuzzing efficiency. CSFuzzer successfully discovered 10 zero-day vulnerabilities, which have been confirmed by the stakeholders and assigned 9 CVEs/CNVDs.}
+}

@@ -126,6 +126,21 @@ namely
 
 ## Recent papers about stateful fuzzers
 
+### CSFuzzer
+
+[CSFuzzer: A grey-box fuzzer for network protocol using context-aware state feedback](https://www.sciencedirect.com/science/article/pii/S0167404825002706), Xiangpu Son et al., Computers & Security Vol. 157, 2025.
+
+CSFuzzer tries to automatically identify variables in the program code that are used to record state informaiton (in fact, two kinds of state variables: protocol-state variables and sub-state variables) and uses new state coverage metric (CAST-Coverage, for context-aware state transition coverage) to guide fuzzing.
+
+So CSFuzzer is similar to SGFuzz and StateFuzz in that it observes program variables and automatically infers which variables to observe.
+
+The implementation of CSFuzzer is based on AFL. 
+
+CSFuzzer has been compared against 8 other fuzzers
+- AFL, AFL++, AFLNET, StateAFL, IJON, SGFUZZ, ChatAFL and NSFuzz
+on the 12 implementations and 9 protocols
+- PureFTPD and BFTPD (FTP), ippsample and CUPS (IPP), Live555 (RTSP), DCMTK(DICOM), Exim (SMTP), Dnsmasq (DNS), Curl, OpenSSL (TLS), MbedTLS and TinyDTLS (DTLS)
+
 ## How to contribute
 
 To contribute, you can open a PR with either:
