@@ -4,7 +4,7 @@ This repository contains a list of stateful fuzzers, organised according to the 
 Cristian Daniele, Seyed Benham Andarzian and Erik Poll
 that appeared in ACM Computing Surveys in April 2024.
 
-Since the publication of that survey several nee stateful fuzzers have been appeared. To keep track of them we started this github page. In fact, there have also been more survey papers about stateful fuzzing (aka protocol fuzzing or stateful protocol fuzzing); we also list these below.
+Since the publication of that survey several new stateful fuzzers have been appeared. To keep track of them we started this github page. In fact, there have also been more survey papers about stateful fuzzing (aka protocol fuzzing or stateful protocol fuzzing); we also list these below.
 
 ## Short background on fuzzing
 
@@ -111,14 +111,18 @@ Very briefly, we can picture active learning tools as fuzzers which send message
 
 ## Recent surveys about stateful fuzzing
 
-Several survey papers about stateful fuzzing that have appeared since ["Fuzzers for stateful systems: Survey and Research Directions"](https://dl.acm.org/doi/abs/10.1145/3648468) by
-Cristian Daniele et al., ACM Computing Surveys, Vol. 56, No. 9, 2024:
+Several survey papers about stateful fuzzing that have appeared since 
 
-1. [A Survey of Protocol Fuzzing](https://dl.acm.org/doi/10.1145/3696788), Xiaohan Zhang et al., ACM Computing Surveys, Vol. 57, No. 2, 2024
+- ["Fuzzers for stateful systems: Survey and Research Directions"](https://dl.acm.org/doi/abs/10.1145/3648468) by
+Cristian Daniele et al., ACM Computing Surveys, Vol. 56, No. 9, 2024
 
-2. [Fuzzing for Stateful Protocol Implementations: Are We There Yet?](https://link.springer.com/chapter/10.1007/978-3-031-64626-3_11), Kunpeng Jian et al., TASE 2024
+namely
 
-3. [A Survey of Network Protocol Fuzzing: Model, Techniques and Directions](https://arxiv.org/abs/2402.17394), Shihao Jiang at al., arXiv, 2024
+- [A Survey of Protocol Fuzzing](https://dl.acm.org/doi/10.1145/3696788), Xiaohan Zhang et al., ACM Computing Surveys, Vol. 57, No. 2, 2024
+
+- [Fuzzing for Stateful Protocol Implementations: Are We There Yet?](https://link.springer.com/chapter/10.1007/978-3-031-64626-3_11), Kunpeng Jian et al., TASE 2024
+
+- [A Survey of Network Protocol Fuzzing: Model, Techniques and Directions](https://arxiv.org/abs/2402.17394), Shihao Jiang at al., arXiv, 2024
 
 ## Recent papers about stateful fuzzers
 
