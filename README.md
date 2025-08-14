@@ -2,7 +2,7 @@
 
 This repository contains a list of stateful fuzzers, organised according to the categories presented in the paper ["Fuzzers for stateful systems: Survey and Research Directions"](https://dl.acm.org/doi/pdf/10.1145/3648468).
 
-# Short background on fuzzing
+## Short background on fuzzing
 
 **Fuzzing** is a testing technique which has been proven very effective in finding vulnerabilities in software. In a nutshell, a fuzzer sends millions of slightly malformed messages to a SUT (System Under Test) waiting for crashes.
 
@@ -16,14 +16,14 @@ On the other hand, **stateful systems** (FTP servers for instance) need to keep 
 
 Different fuzzers use different approaches to deal with the statefulness of the systems, as explained in our paper and summarised in this repo.
 
-# Relation between stateful fuzzing and active learning (aka active automata learning)
+## Relation between stateful fuzzing and active learning (aka active automata learning)
 
 As already mentioned, stateful systems need to keep into account the stateful nature of the SUT. One way of doing it is by using active learning tools to do this.
 
 Very briefly, we can picture active learning tools as fuzzers which send messages to the SUT and observe the responses in order to infer a good approximation of the state model of the SUT. If you want to know more or play around with active learning tools you can visit [this](https://automata.cs.ru.nl) Automata Wiki Professor [F. Vaandragerand](https://www.cs.ru.nl/~fvaan/) and colleagues wrote a few years ago. Also, you can find some simple examples of state model learning [here](https://github.com/cristiandaniele/ftp-statemodel-learner).
 
 
-# Categories of fuzzers from our survey paper
+## Categories of fuzzers from our survey paper
 - **Grammar Based**: Take in input *a* grammar. It can be the grammar of the messages or the grammar of the traces to produce slightly malformed yet grammar-compliant messages.
 - **Grammar Learner**: Similar to grammar-based ones, they automatically infer the state model or the message structure starting from messages or traces.
 - **Evolutionary**: Similar to the majority of the stateless fuzzers, they usually take in input the binary file of the software and a sample of messages (often called seed files) to mutate messages that likely trigger bugs.
@@ -32,7 +32,7 @@ Very briefly, we can picture active learning tools as fuzzers which send message
 - **Man in the Middle**: Very different from the above-mentioned ones, they sit between client and server, intercept messages, mutate and forward them.
 - **Machine Learning based**: This category also contains fuzzers very different from the first. In fact, it contains fuzzers that rely on ML techniques to produce *ready-to-forward* messages or traces.
 
-# What do the fields mean? 
+## What do the fields mean? 
 - **Fuzzer Name**: quite easy
 - **Based on**: fuzzer, approach or methodology the *fuzzer* relies on.
 - **Mutates**: Which part of the input the *fuzzer* mutates. Options are: **messages**, **traces** or **both**.
@@ -45,7 +45,7 @@ Very briefly, we can picture active learning tools as fuzzers which send message
 
 
 
-# Grammar Based fuzzers
+## Grammar Based fuzzers
 
 | Fuzzer Name                                                                | Based on | Mutates          | Open source |
 | -------------------------------------------------------------------------- | -------- | ---------------- | ----------- |
@@ -57,7 +57,7 @@ Very briefly, we can picture active learning tools as fuzzers which send message
 | [_SNOOZE_](https://link.springer.com/chapter/10.1007/11836810_25)          | Na       | Messages         | No          |
 | [_Sulley_](https://github.com/OpenRCE/sulley)                              | BooFuzz  | Messages & trace | Yes         |
 
-# Grammar Learner fuzzers
+## Grammar Learner fuzzers
 
 | Fuzzer Name                                                                                          | What it learns                | Based on         | Input needed | Open source |
 | ---------------------------------------------------------------------------------------------------- | ----------------------------- | ---------------- | ------------ | ----------- |
@@ -68,7 +68,7 @@ Very briefly, we can picture active learning tools as fuzzers which send message
 | [_Pulsar_](https://dl.acm.org/doi/pdf/10.1145/3140587.3062349)                                       | State models & message fields | Passive Learning | Traces       | Yes         |
 | [_StateInspector_](https://dl.acm.org/doi/pdf/10.1145/3548606.3559365)                               | State model                   | Active Learning  | Messages     | Yes         |
 
-# Evolutionary fuzzers
+## Evolutionary fuzzers
 
 | Fuzzer Name                                                                | Feedback system      | Based On                        | Input needed                                              | Open source |
 | -------------------------------------------------------------------------- | -------------------- | ------------------------------- | --------------------------------------------------------- | ----------- |
@@ -79,7 +79,7 @@ Very briefly, we can picture active learning tools as fuzzers which send message
 | [_SGFuzz_](https://mboehme.github.io/paper/USENIX22.pdf)                   | Coverage & branches  | AFL & Automatic code annotation | SUT binary, seed files                                    | Yes         |
 | [_SNPSfuzzer_](https://arxiv.org/pdf/2202.03643)                           | Coverage & branches  | AFL & Manual code annotation    | SUT binary, seed files                                    | No          |
 
-# Evolutionary grammar-based fuzzers
+## Evolutionary grammar-based fuzzers
 
 | Fuzzer Name                                                                        | Learns                       | Feedback (i) | Feedback (ii) | Based on                         | Inputs needed         | Open source |
 | ---------------------------------------------------------------------------------- | ---------------------------- | ------------ | ------------- | -------------------------------- | --------------------- | ----------- |
@@ -90,7 +90,7 @@ Very briefly, we can picture active learning tools as fuzzers which send message
 | [_StateAFL_](https://link.springer.com/article/10.1007/s10664-022-10233-3)         | State model                  | Coverage     | Memory        | AFL                              | SUT binary, PCAP file | Yes         |
 
 
-# Man-in-the-Middle Fuzzers
+## Man-in-the-Middle Fuzzers
 
 | Fuzzer Name                                                                                                                                                                              | Limitations                                                             | Based on         | Inputs needed | Open source |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- | ---------------- | ------------- | ----------- |
@@ -100,14 +100,26 @@ Very briefly, we can picture active learning tools as fuzzers which send message
 
 
 
-# Machine Learning Fuzzers
+## Machine Learning Fuzzers
 | Fuzzer Name                                                                                                                                                              | Based on      | Inputs needed | Open source |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------- | ------------- | ----------- |
 | [_GANFuzz_](https://dl.acm.org/doi/pdf/10.1145/3203217.3203241?casa_token=jUr5t5SZOV8AAAAA:xfjVbpITyW8ZBbeHqvbnhFZXIx9cGbL4WSWVIM9l8bctbaBdH-tx6jDHrAKIamWBB9JqgR39cM5l) | seq-gan model | Traces        | No          |
 | [_MachineLearning for Black-box Fuzzing of NetworkProtocols_](https://link.springer.com/chapter/10.1007/978-3-319-89500-0_53)                                            | seq2seqmodel  | Traces        | No          |
 | [_SeqFuzzer_](https://wcventure.github.io/FuzzingPaper/Paper/ICST19_SeqFuzzer.pdf)                                                                                       | seq2seqmodel  | Traces        | No          |
 
-# How to contribute
+
+## Recent surveys
++----------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------+----+
+|                                 Title                                |                                                                Authors                                                               |Year|
++----------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------+----+
+|                     A Survey of Protocol Fuzzing                     |Xiaohan Zhang, Cen Zhang, Xinghua Li, Zhengjie Du, Bing Mao, Yuekang Li, Yaowen Zheng, Yeting Li, Li Pan, Yang Liu, and Robert H. Deng|2024|
++----------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------+----+
+|   Fuzzing for Stateful Protocol Implementations: Are We There Yet?   |                    Kunpeng Jian, Yanyan Zou, Yeting Li, Jialun Cao, Menghao Li, Jian Sun, Jingyi Shi, and Wei Huo                    |2024|
++----------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------+----+
+|A Survey of Network Protocol Fuzzing: Model, Techniques and Directions|                               Shihao Jiang, Yu Zhang, Junqiang Li, Hongfang Yu, Long Luo, and Gang Sun                               |2024|
++----------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------+----+
+
+## How to contribute
 
 To contribute, you can open a PR with either:
 
