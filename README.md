@@ -4,17 +4,19 @@ This repository contains a list of stateful fuzzers, organised according to the 
 Cristian Daniele, Seyed Benham Andarzian and Erik Poll
 that appeared in ACM Computing Surveys in April 2024.
 
+New stateful fuzzers have been appearing quite frequently since the
+appearance of that survey paper, so we started this github page
+to keep track of them.
+
 ## Short background on fuzzing
 
-**Fuzzing** is a testing technique which has been proven very effective in finding vulnerabilities in software. In a nutshell, a fuzzer sends millions of slightly malformed messages to a SUT (System Under Test) waiting for crashes.
+**Fuzzing** is a testing technique which has been proven very effective in finding vulnerabilities in software. In a nutshell, a fuzzer sends millions of slightly malformed messages to an SUT (System Under Test) hoping to detect crashes which signal vulnerabilities, typically memory corruption flaws.
 
-Unlike random test generation tools, fuzzers use different tricks (grammar, code coverage, seed files) to *cleverly generate the messages* to forward to the SUT. In fact, more than random messages, they try to guide the message generation toward the most interesting direction (with 'interesting' usually being the probability of finding bugs).
+Fuzzers use various tricks (grammars, seed files, code-coverage-guided evolution, ...) to cleverly generate messages to feed to the SUT, with the goal to maximise code coverage and find as many bugs as possible.
 
-Our paper focuses on the different kinds of systems a fuzzer can tackle: *stateless* and *stateful*. 
+Most fuzzers target *stateless* systems, where the processing of an input message does not depend on previous inputs. Typical examples are graphics libraries for viewing or converting images or audio players.
 
-**Stateless systems** (image converter, or mp3 player for example) are relatively easy to fuzz, as they do not keep any memory between executions. This allows the fuzzer not to save any information between executions as well -- making the entire fuzzing process much easier.
-
-On the other hand, **stateful systems** (FTP servers for instance) need to keep an internal state to be able to properly process messages. An FTP server needs to *remember* that the user *Cris* already inserted the correct password. The ability of the SUT to keep some information -- and then make different choices --  makes life hard for fuzzers wich have to deal with it. In fact, while for the stateless systems, the fuzzers only have to generate slightly malformed messages; for stateful systems, the fuzzers need to mutate both the messages and the *traces*, i.e., the sequence of messages. 
+However, many systems, for instance protocol implementations, are *stateful*. Here the system keep an internal state to be able to properly process *sequences of messages*.  For example, an FTP server needs to *remember* that the user *Cris* already inserted the correct password. The internal state recorded by the SUT which then influences the way in which future messages are processed complicates the job for the fuzzer.  To fuzz a stateless system the fuzzer only has to mutate individual messages, but to fuzz a stateful system the fuzzer needs to mutate not just messages but also *traces*, i.e., *sequences of messages*. 
 
 Different fuzzers use different approaches to deal with the statefulness of the systems, as explained in our paper and summarised in this repo.
 
@@ -22,7 +24,7 @@ Different fuzzers use different approaches to deal with the statefulness of the 
 
 As already mentioned, stateful systems need to keep into account the stateful nature of the SUT. One way of doing it is by using active learning tools to do this.
 
-Very briefly, we can picture active learning tools as fuzzers which send messages to the SUT and observe the responses in order to infer a good approximation of the state model of the SUT. If you want to know more or play around with active learning tools you can visit [this](https://automata.cs.ru.nl) Automata Wiki Professor [F. Vaandragerand](https://www.cs.ru.nl/~fvaan/) and colleagues wrote a few years ago. Also, you can find some simple examples of state model learning [here](https://github.com/cristiandaniele/ftp-statemodel-learner).
+Very briefly, we can picture active learning tools as fuzzers which send messages to the SUT and observe the responses in order to infer a good approximation of the state model of the SUT. If you want to know more or play around with active learning tools you can visit [the Automata Wiki](https://automata.cs.ru.nl) by [Frits Vaandrager](https://www.cs.ru.nl/~fvaan/) and colleagues. Also, you can find some simple examples of state model learning [here](https://github.com/cristiandaniele/ftp-statemodel-learner).
 
 
 ## Categories of fuzzers from our survey paper
