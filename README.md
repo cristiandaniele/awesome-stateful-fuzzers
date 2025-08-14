@@ -113,11 +113,11 @@ Very briefly, we can picture active learning tools as fuzzers which send message
 
 ## Recent surveys
 
-1. [A Survey of Protocol Fuzzing] (https://dl.acm.org/doi/10.1145/3696788) Xiaohan Zhang et al., ACM Computing Surveys, Vol. 57, No. 2, 2024
+1. [A Survey of Protocol Fuzzing](https://dl.acm.org/doi/10.1145/3696788) Xiaohan Zhang et al., ACM Computing Surveys, Vol. 57, No. 2, 2024
 
-2. [Fuzzing for Stateful Protocol Implementations: Are We There Yet?] (https://link.springer.com/chapter/10.1007/978-3-031-64626-3_11) Kunpeng Jian et al., TASE 2024
+2. [Fuzzing for Stateful Protocol Implementations: Are We There Yet?](https://link.springer.com/chapter/10.1007/978-3-031-64626-3_11) Kunpeng Jian et al., TASE 2024
 
-3. [A Survey of Network Protocol Fuzzing: Model, Techniques and Directions] (https://arxiv.org/abs/2402.17394), Shihao Jiang at al., arXiv, 2024
+3. [A Survey of Network Protocol Fuzzing: Model, Techniques and Directions](https://arxiv.org/abs/2402.17394), Shihao Jiang at al., arXiv, 2024
 
 ## How to contribute
 
