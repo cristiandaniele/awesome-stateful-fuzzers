@@ -1,7 +1,7 @@
 # awesome-stateful-fuzzers
 
 This repository contains a list of stateful fuzzers, organised according to the categories presented in the survey paper ["Fuzzers for stateful systems: Survey and Research Directions"](https://dl.acm.org/doi/abs/10.1145/3648468) by
-Cristian Daniele, Seyed Benham Andarzian and Erik Poll
+Cristian Daniele, Seyed Gingham Andarzian and Erik Poll
 that appeared in ACM Computing Surveys in April 2024.
 
 Since the publication of that survey several new stateful fuzzers have been appeared. To keep track of them we started this github page. In fact, there have also been more survey papers about stateful fuzzing (aka protocol fuzzing or stateful protocol fuzzing); we also list these below.
@@ -26,10 +26,10 @@ Very briefly, we can picture active learning tools as fuzzers which send message
 
 ## Categories of fuzzers from our survey paper
 - **Grammar Based**: These require some grammar as input. This can be the grammar for the messages or the grammar of the traces, or both. The grammar for the traces, i.e. the message sequences, is often thought of as a finite state machine. This grammar is used as basis to produce (slightly) malformed messages and message sequences.
-- **Grammar Learner**: Instead of requiring a grammar as input, these automatically infer a grammar for the message structure or a grammer (aka state model) for the message sequences or the message structure starting from messages or traces.
+- **Grammar Learner**: Instead of requiring a grammar as input, these automatically infer a grammar for the message structure or a grammar (aka state model) for the message sequences or the message structure starting from messages or traces.
 - **Evolutionary**: In the evolutionary style popularised by afl, these fuzzers observe execution paths to discover interesting mutations of the initial set of messages (often called seed files).
 - **Evolutionary  Grammar-based**: These also take the evolutionary approach, like the Evolutionary fuzzers, but take a grammar as input.
-- **Evolutionary Grammar-learner**: These take a similar approach as  Evolutionary Grammar-based fuzzere, but they try to *infer* the state model or the structure of the messages.
+- **Evolutionary Grammar-learner**: These take a similar approach as Evolutionary Grammar-based fuzzers, but they try to *infer* the state model or the structure of the messages.
 - **Man in the Middle**: Very different from the above-mentioned ones, they sit between client and server, intercept messages, mutate and forward them.
 - **Machine Learning based**: This category contains fuzzers that rely on ML techniques to produce *ready-to-forward* messages or traces.
 
@@ -130,17 +130,14 @@ namely
 
 [CSFuzzer: A grey-box fuzzer for network protocol using context-aware state feedback](https://www.sciencedirect.com/science/article/pii/S0167404825002706), Xiangpu Son et al., Computers & Security, Vol. 157, 2025.
 
-CSFuzzer tries to automatically identify variables in the program code that are used to record state informaiton (in fact, two kinds of state variables: protocol-state variables and sub-state variables) and uses new state coverage metric (CAST-Coverage, for context-aware state transition coverage) to guide fuzzing.
-
-So CSFuzzer is similar to SGFuzz and StateFuzz in that it observes program variables and automatically infers which variables to observe.
-
-The implementation of CSFuzzer is based on AFL. 
+CSFuzzer automatically identifies variables in the program code that it thinks are used to record state information (here it distinguishes two kinds of state variables: protocol-state variables and sub-state variables) and it then uses a new state coverage metric (CAST-Coverage, for context-aware state transition coverage) to guide fuzzing.  
+So CSFuzzer is similar to SGFuzz and StateFuzz in that it observes program variables and automatically infers which variables to observe.  
+The implementation of CSFuzzer is based on AFL.    
 
 CSFuzzer has been compared against 8 other fuzzers
-- AFL, AFL++, AFLNET, StateAFL, IJON, SGFUZZ, ChatAFL and NSFuzz
-
+- AFL, AFL++, AFLNET, StateAFL, IJON, SGFUZZ, ChatAFL and NSFuzz  
 on the 12 implementations and 9 protocols
-- PureFTPD and BFTPD (FTP), ippsample and CUPS (IPP), Live555 (RTSP), DCMTK(DICOM), Exim (SMTP), Dnsmasq (DNS), Curl, OpenSSL (TLS), MbedTLS and TinyDTLS (DTLS)
+- PureFTPD and BFTPD (FTP), ippsample and CUPS (IPP), Live555 (RTSP), DCMTK (DICOM), Exim (SMTP), Dnsmasq (DNS), Curl, OpenSSL (TLS), MbedTLS and TinyDTLS (DTLS)
 
 ## How to contribute
 
