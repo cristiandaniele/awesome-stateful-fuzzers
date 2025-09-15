@@ -9,11 +9,11 @@ Since the publication of that survey several new stateful fuzzers have been appe
 ## Short background on fuzzing
 
 **Fuzzing** is a testing technique which has been proven very effective in finding vulnerabilities in software. In a nutshell, a fuzzer sends millions of slightly malformed messages to an SUT (System Under Test) hoping to detect crashes which signal vulnerabilities, typically memory corruption flaws.
-Fuzzers use various tricks (grammars, seed files, code-coverage-guided evolution, ...) to cleverly generate messages to feed to the SUT, with the goal to maximise code coverage and find as many bugs as possible.
+Fuzzers use various tricks (grammars, seed files with sample messages, code-coverage-guided evolution, ...) to cleverly generate messages to feed to the SUT, with the goal to maximise code coverage and find as many bugs as possible.
 
 Most fuzzers target *stateless* systems. Here the processing of an input message does not depend on previous inputs. Typical examples are graphics libraries for viewing or converting images.
 
-However, many systems, for instance protocol implementations, are *stateful*. Here the system keep an internal state to be able to properly process *sequences of messages* aka *traces*.  For example, an FTP server needs to remember that the user *Cris* already inserted the correct password. The internal state recorded by the SUT which then influences the way in which future messages are processed complicates the job for the fuzzer.  To fuzz a stateless system the fuzzer only has to mutate individual messages, but to fuzz a stateful system the fuzzer needs to mutate not just messages but also the order of messages in traces.
+However, many systems, for instance protocol implementations, are *stateful*. Here the system keeps an internal state to be able to properly process *sequences of messages* aka *traces*.  For example, an FTP server needs to remember that the user *Cris* already inserted the correct password. The internal state recorded by the SUT which then influences the way in which future messages are processed complicates the job for the fuzzer.  To fuzz a stateless system the fuzzer only has to mutate individual messages, but to fuzz a stateful system the fuzzer should not just mutate messages but also the order of messages in traces.
 
 Different fuzzers use different approaches to deal with the statefulness of the systems, as explained in our paper and summarised in this repo.
 
@@ -130,12 +130,13 @@ namely
 
 [CSFuzzer: A grey-box fuzzer for network protocol using context-aware state feedback](https://www.sciencedirect.com/science/article/pii/S0167404825002706), Xiangpu Son et al., Computers & Security, Vol. 157, 2025.
 
-CSFuzzer automatically identifies variables in the program code that it thinks are used to record state information (here it distinguishes two kinds of state variables: protocol-state variables and sub-state variables) and it then uses a new state coverage metric (CAST-Coverage, for context-aware state transition coverage) to guide fuzzing.  
+CSFuzzer automatically identifies variables in the program code that it thinks are used to record state information. Here it distinguishes two kinds of state variables: protocol-state variables and sub-state variables. It then uses a new state coverage metric (CAST-Coverage, for context-aware state transition coverage) to guide fuzzing.  
 So CSFuzzer is similar to SGFuzz and StateFuzz in that it observes program variables and automatically infers which variables to observe.  
 The implementation of CSFuzzer is based on AFL.    
 
 CSFuzzer has been compared against 8 other fuzzers
 - AFL, AFL++, AFLNET, StateAFL, IJON, SGFUZZ, ChatAFL and NSFuzz  
+
 on the 12 implementations and 9 protocols
 - PureFTPD and BFTPD (FTP), ippsample and CUPS (IPP), Live555 (RTSP), DCMTK (DICOM), Exim (SMTP), Dnsmasq (DNS), Curl, OpenSSL (TLS), MbedTLS and TinyDTLS (DTLS)
 
