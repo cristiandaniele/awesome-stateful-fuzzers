@@ -6,7 +6,9 @@ that appeared in ACM Computing Surveys in April 2024.
 
 Since the publication of that survey several new stateful fuzzers have been appeared. To keep track of them we started this github page. In fact, there have also been more survey papers about stateful fuzzing (aka protocol fuzzing or stateful protocol fuzzing); we also list these below.
 
-## Short background on fuzzing
+Information about the new stateful fuzzers that we summarise includes: which category from our survey paper it belongs to; whether it uses passive learning or active learning to infer state machines; whether it requires source code; whether it observes branch coverage in the style of ALF; the case studies it has been evaluated on; and which other stateful fuzzers it has been compared with.
+
+## Short background on fuzzing of stateful systems
 
 **Fuzzing** is a testing technique which has been proven very effective in finding vulnerabilities in software. In a nutshell, a fuzzer sends millions of slightly malformed messages to an SUT (System Under Test) hoping to detect crashes which signal vulnerabilities, typically memory corruption flaws.
 Fuzzers use various tricks (grammars, seed files with sample messages, code-coverage-guided evolution, ...) to cleverly generate messages to feed to the SUT, with the goal to maximise code coverage and find as many bugs as possible.
@@ -15,14 +17,11 @@ Most fuzzers target *stateless* systems. Here the processing of an input message
 
 However, many systems, for instance protocol implementations, are *stateful*. Here the system keeps an internal state to be able to properly process *sequences of messages* aka *traces*.  For example, an FTP server needs to remember that the user *Cris* already inserted the correct password. The internal state recorded by the SUT which then influences the way in which future messages are processed complicates the job for the fuzzer.  To fuzz a stateless system the fuzzer only has to mutate individual messages, but to fuzz a stateful system the fuzzer should not just mutate messages but also the order of messages in traces.
 
-Different fuzzers use different approaches to deal with the statefulness of the systems, as explained in our paper and summarised in this repo.
+Fuzzers for stateful systems can use different approaches to deal with the statefulness of the SUT.  One approach is to use *active automata learning* to infer state machines. The original active learning algorithm is Angluin's L\*, but there are newer variants, implemented in libraries such as [LearnLib](https://github.com/LearnLib/learnlib) and [AALPy](https://github.com/DES-Lab/AALpy).
+Fuzzers can use active learning as ingredient for their approach, but active learning algorithms can also be regarded as fuzzers in their own right, albeit fuzzers that are limited in the sense that they will not mutate individual messages but only mutate the order of messages.
+The [Automata Wiki](https://automata.cs.ru.nl) by [Frits Vaandrager](https://www.cs.ru.nl/~fvaan) and colleagues collects many examples where active learning has been used. Some simple examples of active learning for FTP servers are discussed [here](https://github.com/cristiandaniele/ftp-statemodel-learner).
 
-## Relation between stateful fuzzing and active learning (aka active automata learning)
-
-As already mentioned, fuzzers for stateful systems need to keep into account the stateful nature of the SUT. One way of inferring this state behaviour is by using active learning tools.
-
-Very briefly, we can picture active learning tools as fuzzers which send messages to the SUT and observe the responses in order to infer an approximation of the state model of the SUT. If you want to know more or play around with active learning tools you can visit [the Automata Wiki](https://automata.cs.ru.nl) by [Frits Vaandrager](https://www.cs.ru.nl/~fvaan/) and colleagues. Also, you can find some simple examples of state model learning for FTP servers [here](https://github.com/cristiandaniele/ftp-statemodel-learner).
-
+Another approach is to use *passive learning algorithms* that infer state machines from a set of traces after these have been collected.  [FlexFringe](https://github.com/tudelft-cda-lab/FlexFringe) is a library that provides passive learning algorithms; some passive learning algorithms have also been added to [AALPy](https://github.com/DES-Lab/AALpy).
 
 ## Categories of fuzzers from our survey paper
 - **Grammar Based**: These require some grammar as input. This can be the grammar for the messages or the grammar of the traces, or both. The grammar for the traces, i.e. the message sequences, is often thought of as a finite state machine. This grammar is used as basis to produce (slightly) malformed messages and message sequences.
@@ -128,17 +127,25 @@ namely
 
 ### CSFuzzer
 
-[CSFuzzer: A grey-box fuzzer for network protocol using context-aware state feedback](https://www.sciencedirect.com/science/article/pii/S0167404825002706), Xiangpu Son et al., Computers & Security, Vol. 157, 2025.
+[CSFuzzer: A grey-box fuzzer for network protocol using context-aware state feedback](https://www.sciencedirect.com/science/article/pii/S0167404825002706), by Xiangpu Son, Yingpei Zeng, Jianliang Wu, Hao Li, Chaoshun Zuo, Qingchuan Zhao, and Shanqing Guo, Computers & Security, Vol. 157, 2025.
 
-CSFuzzer automatically identifies variables in the program code that it thinks are used to record state information. Here it distinguishes two kinds of state variables: protocol-state variables and sub-state variables. It then uses a new state coverage metric (CAST-Coverage, for context-aware state transition coverage) to guide fuzzing.  
-So CSFuzzer is similar to SGFuzz and StateFuzz in that it observes program variables and automatically infers which variables to observe.  
-The implementation of CSFuzzer is based on AFL.    
+CSFuzzer automatically identifies variables in the program code that it thinks are used to record state information. Here it distinguishes two kinds of state variables: protocol-state variables and sub-state variables. It then uses a new state coverage metric (CAST-Coverage, for context-aware state transition coverage) to guide the fuzzing.  So CSFuzzer is similar to SGFuzz and StateFuzz in that it observes program variables and automatically infers which variables to observe.  The implementation of CSFuzzer is based on AFL.  
+
+So CSFuzzer is a white-box fuzzer (it requires access to the source code), it observes branch coverage (in the style of AFL), and it does not make use of passive or active learning algorithms to infer state machines.
 
 CSFuzzer has been compared against 8 other fuzzers
 - AFL, AFL++, AFLNET, StateAFL, IJON, SGFUZZ, ChatAFL and NSFuzz  
 
 on the 12 implementations and 9 protocols
 - PureFTPD and BFTPD (FTP), ippsample and CUPS (IPP), Live555 (RTSP), DCMTK (DICOM), Exim (SMTP), Dnsmasq (DNS), Curl, OpenSSL (TLS), MbedTLS and TinyDTLS (DTLS)
+
+### BLEdiff
+
+### Logic gone astray
+
+### CoreCrisis
+
+### State Machine Mutation-based Testing Framework for Wireless Communication Protocols
 
 ## How to contribute
 
