@@ -50,22 +50,22 @@ Another approach is to use *passive learning algorithms* that infer state machin
 | Fuzzer Name                                                                | Based on | Mutates          | Open source |
 | -------------------------------------------------------------------------- | -------- | ---------------- | ----------- |
 | [_AspFuzz_](https://ieeexplore.ieee.org/document/5546704)                  | NA       | Messages & trace | Yes         |
-| [_BooFuzz_](https://github.com/jtpereyda/boofuzz)                          | NA       | Messages         | Yes         |
-| [_Fuzzowski_](https://github.com/nccgroup/fuzzowski)                       | Sulley   | Messages         | Yes         |
+| [_BooFuzz_](https://github.com/jtpereyda/boofuzz)                          | Sulley   | Messages         | Yes         |
+| [_Fuzzowski_](https://github.com/nccgroup/fuzzowski)                       | BooFuzz  | Messages         | Yes         |
 | [_Peach_](https://wiki.mozilla.org/Security/Fuzzing/Peach)                 | NA       | Messages         | Yes         |
 | [_PROTOS_](https://link.springer.com/chapter/10.1007/978-0-387-35413-2_16) | NA       | Messages         | No          |
 | [_SNOOZE_](https://link.springer.com/chapter/10.1007/11836810_25)          | NA       | Messages         | No          |
-| [_Sulley_](https://github.com/OpenRCE/sulley)                              | BooFuzz  | Messages & trace | Yes         |
+| [_Sulley_](https://github.com/OpenRCE/sulley)                              | NA       | Messages & trace | Yes         |
 
 ## Grammar Learner fuzzers
 
 | Fuzzer Name                                                                                          | What it learns                | Based on         | Input needed | Open source |
 | ---------------------------------------------------------------------------------------------------- | ----------------------------- | ---------------- | ------------ | ----------- |
 | [_Doupé et al._](https://www.usenix.org/system/files/conference/usenixsecurity12/sec12-final225.pdf) | State model                   | Active Learning  | Messages     | Yes         |
-| [_GLADE_](https://wcventure.github.io/FuzzingPaper/Paper/Springer15_PULSAR.pdf)                      | Message fields                | Active Learning  | Messages     | Yes         |
-| [_Hsu et al._](https://wcventure.github.io/FuzzingPaper/Paper/Springer15_PULSAR.pdf)                 | State models                  | Passive Learning | Traces       | No          |
+| [_GLADE_](https://dl.acm.org/doi/pdf/10.1145/3140587.3062349)                                        | Message fields                | Active Learning  | Messages     | Yes         |
+| [_Hsu et al._](https://ieeexplore.ieee.org/document/4697030)                                         | State models                  | Passive Learning | Traces       | No          |
 | [_LearnLib_](https://www.sciencedirect.com/science/article/pii/0890540187900526)                     | Message fields                | Active Learning  | Messages     | Yes         |
-| [_Pulsar_](https://dl.acm.org/doi/pdf/10.1145/3140587.3062349)                                       | State models & message fields | Passive Learning | Traces       | Yes         |
+| [_Pulsar_](https://wcventure.github.io/FuzzingPaper/Paper/Springer15_PULSAR.pdf)                     | State models & message fields | Passive Learning | Traces       | Yes         |
 | [_StateInspector_](https://dl.acm.org/doi/pdf/10.1145/3548606.3559365)                               | State model                   | Active Learning  | Messages     | Yes         |
 
 ## Evolutionary fuzzers
